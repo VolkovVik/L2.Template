@@ -1,0 +1,12 @@
+bin
+obj
+*.sln.DotSettings.user
+*.csproj.user
+.vs
+.log
+packages
+*.bak
+.config
+.idea/
+*.Development.json
+source/Presentation/Aspu.Template.API/Logs

@@ -1,0 +1,26 @@
+﻿add-migration InitialMigration -p Aspu.L2.DAL.MsSQL -s Aspu.L2.API -verbose
+add-migration InitialMigration -p Aspu.L2.DAL.MySQL -s Aspu.L2.API -verbose
+add-migration InitialMigration -p Aspu.L2.DAL.PostgreSQL -s Aspu.L2.API -verbose
+
+Drop-Database -p Server.Persistence -s Server.Api
+
+dotnet ef migrations add InitialCreate -p Server.Persistence -s Server.Api
+dotnet ef migrations remove  -p Server.Persistence -s Server.Api -f
+dotnet ef database update -p Server.Persistence -s Server.Api
+
+MySQL command
+Add-Migration InitialMigration -Project Vekas.Migrations.MySQL -StartupProject Server.Api
+
+PostgreSQL command
+Add-Migration InitialMigration -Project Vekas.Migrations.PostgreSQL -StartupProject Server.Api
+
+Скрипт для создания миграций для всех баз данных ./addMigration.ps1
+1. в json конфиге добавить строки подключения
+    "ConnectionStrings": {
+		"DefaultConnection": "Server=DESKTOP-84NSBT4\\SQLEXPRESS;Database=aspu.milk;Trusted_Connection=True;Connect Timeout=900",
+		"MsSql": "Server=DESKTOP-84NSBT4\\SQLEXPRESS;Database=aspu.milk;Trusted_Connection=True;Connect Timeout=900",
+		"PostgreSql": "server=localhost;port=3306;uid=root;pwd=root;database=aspu.milk;",
+		"MySql": "server=localhost;port=3306;uid=root;pwd=root;database=aspu.milk;"
+	},
+2. Команда для установки инструменты командной .NET: dotnet tool install --global dotnet-ef
+3. Команда для запуска ./addMigration.ps1 в корне проекта C:\path_to_root_folder\aspu.milk, либо в developer powershell, где путь сразу указан до корня проекта.

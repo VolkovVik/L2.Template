@@ -1,0 +1,6 @@
+@Aspu.Template_HostAddress = http://localhost:5097
+
+GET {{Aspu.Template_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
