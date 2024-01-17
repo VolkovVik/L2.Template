@@ -1,6 +1,6 @@
-﻿add-migration InitialMigration -p Aspu.L2.DAL.MsSQL -s Aspu.L2.API -verbose
-add-migration InitialMigration -p Aspu.L2.DAL.MySQL -s Aspu.L2.API -verbose
-add-migration InitialMigration -p Aspu.L2.DAL.PostgreSQL -s Aspu.L2.API -verbose
+﻿add-migration InitialMigration -p Aspu.Template.Persistence.MsSql -s Aspu.Template.API -verbose
+add-migration InitialMigration -p Aspu.Template.Persistence.MySQL -s Aspu.Template.API -verbose
+add-migration InitialMigration -p Aspu.Template.Persistence.PostgreSQL -s Aspu.Template.API -verbose
 
 Drop-Database -p Server.Persistence -s Server.Api
 

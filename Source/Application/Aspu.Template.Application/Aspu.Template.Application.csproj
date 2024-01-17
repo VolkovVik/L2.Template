@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Application\Auth\EventHandlers\" />
     <Folder Include="Application\Auth\Commands\" />
+    <Folder Include="Application\Users\EventHandlers\" />
     <Folder Include="Implementation\" />
   </ItemGroup>
 

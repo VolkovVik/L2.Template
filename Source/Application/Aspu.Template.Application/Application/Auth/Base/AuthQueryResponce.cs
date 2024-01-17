@@ -9,4 +9,7 @@ public record AuthQueryResponce
 
     [LoggerProperty("ExpirationMinutes")]
     public long? ExpirationMinutes => !ExpirationTime.HasValue ? null : (long)(ExpirationTime.Value - DateTime.UtcNow).TotalMinutes;
+
+    [LoggerProperty("ExpirationSeconds")]
+    public long? ExpirationSeconds => !ExpirationTime.HasValue ? null : (long)(ExpirationTime.Value - DateTime.UtcNow).TotalSeconds;
 }

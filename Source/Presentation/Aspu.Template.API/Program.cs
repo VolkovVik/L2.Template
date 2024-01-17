@@ -1,6 +1,9 @@
+using Aspu.L2.DAL;
+using Aspu.L2.DAL.Base.Interfaces;
 using Aspu.Template.API.Configure;
 using Aspu.Template.Application;
 using Aspu.Template.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -43,6 +46,15 @@ try
     builder.Services.AddAuthenticationServices(configuration);
 
     var app = builder.Build();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        var dbHelper = scope.ServiceProvider.GetRequiredService<IDatabaseHelper>();
+        await dbContext.Database.MigrateAsync();
+        dbHelper.Migrate(dbContext);
+    }
+
     app.ConfigureLogger();
 
     // Configure the HTTP request pipeline.

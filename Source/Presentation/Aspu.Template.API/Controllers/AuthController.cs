@@ -9,17 +9,17 @@ namespace Aspu.L2.API.Controllers;
 public class AuthController : ApiController
 {
     [AllowAnonymous]
-    [HttpGet("ping")]
+    [HttpGet("/api/ping")]
     public Result Ping() => Result.Ok();
 
     [AllowAnonymous]
-    [HttpPost("login")]
-    public async Task<Result<GetTokenQueryResponce>> GetToken(GetTokenQuery query) => await Mediator.Send(query);
+    [HttpPost("/api/login")]
+    public async Task<Result<GetTokenQueryResponce?>> GetToken(GetTokenQuery query) => await Mediator.Send(query);
 
     [AllowAnonymous]
     [HttpPost("/api/checkToken")]
     public async Task<Result<CheckTokenQueryResponce>> CheckToken(CheckTokenQuery query) => await Mediator.Send(query);
 
     [HttpGet("/api/refreshToken")]
-    public async Task<Result<RefreshTokenQueryResponce>> RefrashToken() => await Mediator.Send(new RefreshTokenQuery());
+    public async Task<Result<RefreshTokenQueryResponce?>> RefrashToken() => await Mediator.Send(new RefreshTokenQuery());
 }
