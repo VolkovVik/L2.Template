@@ -11,6 +11,7 @@ public static class ConfigureLoggingServices
     {
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
+            .WriteTo.Seq("http://localhost:5341")
             .WriteTo.File("logs/server.log",
                 retainedFileCountLimit: 3,
                 rollingInterval: RollingInterval.Day)
@@ -27,6 +28,7 @@ public static class ConfigureLoggingServices
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.Debug()
+            .WriteTo.Seq("http://localhost:5341", LogEventLevel.Information)
             .WriteTo.Console(LogEventLevel.Information, theme: AnsiConsoleTheme.Code)
             .WriteTo.File("logs/server.log",
                 rollingInterval: RollingInterval.Day,
