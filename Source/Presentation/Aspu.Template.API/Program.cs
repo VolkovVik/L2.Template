@@ -64,6 +64,10 @@ try
         });
     });
 
+    // Services CORS
+    const string corsPolicy = "CorsAppPoliocy";
+    builder.Services.AddCors(p => p.AddPolicy(corsPolicy, builder => builder.SetIsOriginAllowed(x => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
+
     builder.Services.AddHttpClient();
     builder.Services.AddHttpContextAccessor();
     builder.Services.Configure<HostOptions>(hostOptions => hostOptions.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore);
@@ -93,7 +97,7 @@ try
     }
 
     app.UseWebSockets();
-    app.UseCors(options => options.SetIsOriginAllowed(x => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+    app.UseCors(corsPolicy);
 
     app.UseHttpsRedirection();
 
