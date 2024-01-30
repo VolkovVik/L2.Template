@@ -14,6 +14,7 @@ public static class ConfigureApiServices
         services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         services.Configure<JwtTokenConfig>(configuration.GetSection("JwtToken"));
+        services.Configure<HostOptions>(hostOptions => { hostOptions.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore; });
         return services;
     }
 }
