@@ -72,6 +72,7 @@ try
     builder.Services.AddHttpContextAccessor();
     builder.Services.Configure<HostOptions>(hostOptions => hostOptions.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore);
 
+    builder.Services.AddHealthCheckServices();
     builder.Services.AddApiServices(configuration);
     builder.Services.AddApplicationServices(configuration);
     builder.Services.AddInfrastructureServices(configuration);
@@ -105,6 +106,9 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+
+    app.UseRouting();
+    app.ConfigureHealthCheck();
 
     app.Run();
 }
