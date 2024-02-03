@@ -1,6 +1,7 @@
 using Aspu.L2.DAL;
 using Aspu.L2.DAL.Base.Interfaces;
 using Aspu.Template.API.Extensions;
+using Aspu.Template.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -100,6 +101,13 @@ try
 
     app.MapControllers();
     app.UseHealthCheck();
+
+    app.MapGet("/version/{min?}/{max?}", (string? min, string? max, HttpContext context) =>
+    {
+        var routeValues = context.GetRouteData().Values ?? [];
+        var service = context.RequestServices.GetRequiredService<IVersionService>();
+        context.Response.WriteAsJsonAsync(new { Version = service.ApplicationVersion, Data = routeValues });
+    }).RequireCors().RequireAuthorization().WithDisplayName("Version");
 
     app.Run();
 }
