@@ -1,12 +1,11 @@
-﻿using Aspu.Template.API.Extensions;
-using Aspu.Template.API.Infrastructure.Services;
+﻿using Aspu.Template.API.Infrastructure.Services;
 using Aspu.Template.Application;
 using Aspu.Template.Application.Interfaces;
 using Aspu.Template.Application.Services;
 using Aspu.Template.Domain.Configuration;
 using Aspu.Template.Infrastructure;
 
-namespace Aspu.Template.API.Configure;
+namespace Aspu.Template.API.Extensions;
 
 public static class ApiExtension
 {
