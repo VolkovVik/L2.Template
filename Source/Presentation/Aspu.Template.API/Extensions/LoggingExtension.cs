@@ -3,10 +3,12 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace Aspu.Template.API.Configure;
+namespace Aspu.Template.API.Extensions;
 
-public static class ConfigureLoggingServices
+public static class LoggingExtension
 {
+    private static readonly PathString _apiPath = new("/api");
+
     public static void SetDefaultConfiguration()
     {
         Log.Logger = new LoggerConfiguration()
@@ -40,9 +42,7 @@ public static class ConfigureLoggingServices
             .CreateLogger();
     }
 
-    private static readonly PathString _apiPath = new("/api");
-
-    public static void ConfigureLogger(this IApplicationBuilder app)
+    public static void UseSerilogLogger(this IApplicationBuilder app)
     {
         app.UseWhen(
             predicate => predicate.Request.Path.StartsWithSegments(_apiPath),

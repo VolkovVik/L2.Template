@@ -4,9 +4,9 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace Aspu.Template.API.Configure;
+namespace Aspu.Template.API.Extensions;
 
-public static class ConfigureHealthCheckServices
+public static class HealthCheckExtension
 {
     public static IServiceCollection AddHealthCheckServices(this IServiceCollection services)
     {
@@ -19,7 +19,7 @@ public static class ConfigureHealthCheckServices
         return services;
     }
 
-    public static void ConfigureHealthCheck(this IApplicationBuilder app)
+    public static void UseHealthCheck(this IApplicationBuilder app)
     {
         app.UseEndpoints(endpoints =>
         {

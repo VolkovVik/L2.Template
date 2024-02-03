@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Aspu.Template.API.Configure;
+namespace Aspu.Template.API.Extensions;
 
-public static class ConfigureAuthenticationServices
+public static class AuthenticationExtension
 {
     private const string SectionName = "JwtToken";
 

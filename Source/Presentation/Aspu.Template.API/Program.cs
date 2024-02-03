@@ -1,15 +1,13 @@
 using Aspu.L2.DAL;
 using Aspu.L2.DAL.Base.Interfaces;
-using Aspu.Template.API.Configure;
-using Aspu.Template.Application;
-using Aspu.Template.Infrastructure;
+using Aspu.Template.API.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-ConfigureLoggingServices.SetDefaultConfiguration();
+LoggingExtension.SetDefaultConfiguration();
 try
 {
     Log.Information("Starting web application");
@@ -70,14 +68,7 @@ try
 
     builder.Services.AddHttpClient();
     builder.Services.AddHttpContextAccessor();
-    builder.Services.Configure<HostOptions>(hostOptions => hostOptions.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore);
-
-    builder.Services.AddHealthCheckServices();
-    builder.Services.AddApiServices(configuration);
-    builder.Services.AddApplicationServices(configuration);
-    builder.Services.AddInfrastructureServices(configuration);
-    builder.Services.AddAuthenticationServices(configuration);
-
+    builder.Services.AddCustomServices(configuration);
     var app = builder.Build();
 
     using (var scope = app.Services.CreateScope())
@@ -88,7 +79,7 @@ try
         dbHelper.Migrate(dbContext);
     }
 
-    app.ConfigureLogger();
+    app.UseSerilogLogger();
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
@@ -102,13 +93,13 @@ try
 
     app.UseHttpsRedirection();
 
+    app.UseRouting();
+
     app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();
-
-    app.UseRouting();
-    app.ConfigureHealthCheck();
+    app.UseHealthCheck();
 
     app.Run();
 }
