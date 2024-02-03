@@ -1,4 +1,5 @@
 ﻿using Aspu.Template.API.Infrastructure;
+using Aspu.Template.API.Infrastructure.Middlewares;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;

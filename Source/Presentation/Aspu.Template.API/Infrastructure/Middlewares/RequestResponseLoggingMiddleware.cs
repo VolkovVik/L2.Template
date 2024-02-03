@@ -1,7 +1,7 @@
 ﻿using Serilog.Context;
 using System.Text;
 
-namespace Aspu.Template.API.Infrastructure;
+namespace Aspu.Template.API.Infrastructure.Middlewares;
 
 public class RequestResponseLoggingMiddleware(RequestDelegate next)
 {
