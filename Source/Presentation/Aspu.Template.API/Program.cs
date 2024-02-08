@@ -107,7 +107,7 @@ try
         var routeValues = context.GetRouteData().Values ?? [];
         var service = context.RequestServices.GetRequiredService<IVersionService>();
         context.Response.WriteAsJsonAsync(new { Version = service.ApplicationVersion, Data = routeValues });
-    }).RequireCors().RequireAuthorization().WithDisplayName("Version");
+    }).RequireAuthorization().WithDisplayName("Version");
 
     app.Run();
 }
