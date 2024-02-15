@@ -30,6 +30,10 @@ public static class ConfigureServices
             options.UseLazyLoadingProxies();
             options.UseSqlServer(connectionString, builder => builder.MigrationsAssembly(assembly));
         });
+        services.AddDbContext<ConfigurationDbContext>(options =>
+        {
+            options.UseSqlServer(connectionString, builder => builder.MigrationsAssembly(assembly));
+        });
         return services;
     }
 

@@ -14,6 +14,7 @@ try
     Log.Information("Starting web application");
 
     var builder = WebApplication.CreateBuilder(args);
+    builder.Host.ConfigureAppSettings();
 
     var configuration = builder.Configuration;
     builder.Host.UseSerilog((context, services, configuration) => configuration
@@ -78,6 +79,9 @@ try
         var dbHelper = scope.ServiceProvider.GetRequiredService<IDatabaseHelper>();
         await dbContext.Database.MigrateAsync();
         dbHelper.Migrate(dbContext);
+
+        var configDbContext = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+        await configDbContext.Database.MigrateAsync();
     }
 
     app.UseSerilogLogger();
@@ -120,4 +124,3 @@ finally
     Log.Information("Stopping web application");
     Log.CloseAndFlush();
 }
-
