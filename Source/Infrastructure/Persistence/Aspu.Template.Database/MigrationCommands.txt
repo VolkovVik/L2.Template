@@ -2,6 +2,10 @@
 add-migration InitialMigration -p Aspu.Template.Persistence.MySQL -s Aspu.Template.API -verbose
 add-migration InitialMigration -p Aspu.Template.Persistence.PostgreSQL -s Aspu.Template.API -verbose
 
+add-migration InitialMigration -p Aspu.Template.Persistence.MsSql -s Aspu.Template.API -c AppDbContext -verbose
+add-migration AddSettingsMigration -p Aspu.Template.Persistence.MsSql -s Aspu.Template.API -c AppDbContext -verbose
+add-migration AddSettingsMigration -p Aspu.Template.Persistence.MsSql -s Aspu.Template.API -Context AppDbContext -verbose
+
 Drop-Database -p Server.Persistence -s Server.Api
 
 dotnet ef migrations add InitialCreate -p Server.Persistence -s Server.Api

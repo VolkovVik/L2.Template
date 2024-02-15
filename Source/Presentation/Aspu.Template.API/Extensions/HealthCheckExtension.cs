@@ -21,6 +21,7 @@ public static class HealthCheckExtension
 
     public static void UseHealthCheck(this IApplicationBuilder app)
     {
+        /// healthchecks-ui
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHealthChecksUI(opt =>
