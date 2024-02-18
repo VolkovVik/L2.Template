@@ -2,7 +2,7 @@
 
 namespace Aspu.L2.Application.Application.Auth.Base;
 
-public record AuthQueryResponce
+public record AuthQueryResponse
 {
     [LoggerProperty("ExpirationTime")]
     public DateTime? ExpirationTime { get; set; }
