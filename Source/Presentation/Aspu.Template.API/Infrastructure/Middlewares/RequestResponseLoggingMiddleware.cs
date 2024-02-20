@@ -22,6 +22,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next)
 
             await _next(context);
 
+            newResponseBodyStream.Seek(0, SeekOrigin.Begin);
             await newResponseBodyStream.CopyToAsync(originalResponseBodyStream);
         }
     }
