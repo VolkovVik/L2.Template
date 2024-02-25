@@ -1,4 +1,5 @@
-﻿using Aspu.Template.Application.Infrastructure.Behaviours;
+﻿using Aspu.Template.Application.Implementation;
+using Aspu.Template.Application.Infrastructure.Behaviours;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,12 @@ public static class ConfigureServices
     {
         var assembly = Assembly.GetExecutingAssembly();
         var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+
+        services.Scan(scan =>
+            scan.FromCallingAssembly()
+                .AddClasses(classes => classes.AssignableTo<IScrutorScopedService>())
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
 
         services.AddAutoMapper(assemblies);
         services.AddValidatorsFromAssembly(assembly);
