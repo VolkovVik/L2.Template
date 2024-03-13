@@ -1,5 +1,6 @@
 ﻿using Aspu.Template.Application.Implementation;
 using Aspu.Template.Application.Infrastructure.Behaviours;
+using Aspu.Template.Application.Quartz;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,8 @@ public static class ConfigureServices
                 .AddClasses(classes => classes.AssignableTo<IScrutorScopedService>())
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
+
+        services.AddApplicationQuartzServices(configuration);
 
         services.AddAutoMapper(assemblies);
         services.AddValidatorsFromAssembly(assembly);
