@@ -124,3 +124,9 @@ finally
     Log.Information("Stopping web application");
     Log.CloseAndFlush();
 }
+
+/// <remark>
+/// Using only for integration tests
+/// https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0
+/// </remark>
+public partial class Program { }

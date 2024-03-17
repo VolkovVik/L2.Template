@@ -1,6 +1,5 @@
 ﻿using Aspu.L2.Application.Application.Auth;
 using Aspu.Template.Application.Application.Auth.Queries;
-using Aspu.Template.Application.Application.Test.Queries;
 using Aspu.Template.Domain.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

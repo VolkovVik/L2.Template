@@ -13,6 +13,10 @@ public class JwtTokenService(IOptions<JwtTokenConfig> options) : IJwtTokenServic
 {
     private readonly JwtTokenConfig _jwtConfig = options.Value;
 
+    private const string ProductionTime = "ProductionTime";
+    private const string ExpirationTime = "ExpirationTime";
+    private const string ExpirationMinutes = "ExpirationMinutes";
+
     public (string token, DateTime expirationTime) CreateToken(ApplicationUser user, IEnumerable<Claim>? claims = null)
     {
         var expirationTime = DateTime.UtcNow.AddMinutes(_jwtConfig.ExpirationTime);
@@ -32,9 +36,8 @@ public class JwtTokenService(IOptions<JwtTokenConfig> options) : IJwtTokenServic
         /// <remarks>
         /// https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
         /// </remarks>
-        claims ??= Enumerable.Empty<Claim>();
-        var items = claims.ToList();
-        items.AddRange(new[] {
+        var items = (claims ?? []).ToList();
+        items.AddRange([
             new Claim(JwtRegisteredClaimNames.Sub, _jwtConfig.Subject),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             //new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
@@ -44,10 +47,10 @@ public class JwtTokenService(IOptions<JwtTokenConfig> options) : IJwtTokenServic
             new Claim(ClaimTypes.Name, user.NormalizedUserName?? string.Empty),
             new Claim(ClaimTypes.Name, user.Name ?? string.Empty),
             new Claim(ClaimTypes.Email, user.Email?? string.Empty),
-            new Claim("ProductionTime", DateTime.UtcNow.ToString()),
-            new Claim("ExpirationTime", expirationTime.ToString()),
-            new Claim("ExpirationMinutes", _jwtConfig.ExpirationTime.ToString()),
-        });
+            new Claim(ProductionTime, DateTime.UtcNow.ToString()),
+            new Claim(ExpirationTime, expirationTime.ToString()),
+            new Claim(ExpirationMinutes, _jwtConfig.ExpirationTime.ToString()),
+        ]);
         return [.. items];
     }
 

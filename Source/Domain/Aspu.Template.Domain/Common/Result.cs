@@ -18,7 +18,7 @@ public class Result
     public Result(bool isSuccess, IEnumerable<string?> messages)
     {
         IsSuccess = isSuccess;
-        Messages = (messages ?? Enumerable.Empty<string>()).Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x!).Distinct().ToList();
+        Messages = (messages ?? []).Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x!).Distinct().ToList();
         Messages = isSuccess || Messages?.Count > 0 ? Messages : ["error"];
     }
 
